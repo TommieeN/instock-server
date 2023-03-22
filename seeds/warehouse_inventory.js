@@ -1,5 +1,5 @@
-const inventoryData = require('../seed_data/inventory');
-const warehouseData = require('../seed_data/warehouse');
+const inventoryData = require('../seed_data/02_inventories');
+const warehouseData = require('../seed_data/01_warehouses');
 
 exports.seed = function (knex) {
   return knex('warehouse')
