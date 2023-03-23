@@ -30,16 +30,34 @@ exports.editWarehouse = (req, res) => {
 			);
 	}
 
-  //require valid email address
-  if (!req.body.contact_email.includes("@" || !req.body.contact_email.includes("."))) {
-    return res.status(400).send("Please include a valid email, edit failed")
-  }
+  // //require valid email address
+  // if (!req.body.contact_email.includes("@" || !req.body.contact_email.includes("."))) {
+  //   return res.status(400).send("Please include a valid email, edit failed")
+  // }
 
-  //require valid phone number length
-  if (parseInt(req.body.contact_phone).length < 10) {
-    return res.status(400).send("Please include a valid phone number, edit failed")
-  }
+  // //require valid phone number length
+  // if (parseInt(req.body.contact_phone).length < 10) {
+  //   return res.status(400).send("Please include a valid phone number, edit failed")
+  // }
 
-  //////////////////////////////////////left off here Wednesday evening...//////////
-
-}
+  knex("warehouses")
+  .update(req.body)
+  .where({ id: req.params.id })
+  //return error if data aka id does not exist
+  .then(() => {
+  // .then((data) => {
+    // if (data === 0) {
+    //   return res.status(404).send(`Warehouse with ID of ${req.params.id} does not exist, update failed`)
+    // }
+    // if all validation passed, return updated information
+    res.status(200).send({
+      "id": req.params.id,
+      ...req.body
+    })
+  })
+  .catch((err) =>
+    res
+      .status(400)
+      .send(`Error updating Warehouse with id of ${req.params.id} ${err}`)
+  );
+};

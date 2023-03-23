@@ -66,8 +66,3 @@ exports.updateInventoryItem = (req, res) => {
 				);
 		});
 };
-
-
-// `{
-//   "id": "${req.params.id}",
-//   "warehouse_id": "${req.body.warehouse_id}}"`
