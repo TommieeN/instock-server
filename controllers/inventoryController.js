@@ -1,5 +1,6 @@
 const knex = require("knex")(require("../knexfile"));
 
+//GET ALL INVENTORY
 exports.index = (_req, res) => {
 	knex("inventories")
 		.then((data) => {
@@ -8,7 +9,8 @@ exports.index = (_req, res) => {
 		.catch((err) => res.status(400).send(`Error retrieving Inventory: ${err}`));
 };
 
-//updateInventoryItem request to update inventory items
+
+//UPDATE INVENTORY ITEM
 exports.updateInventoryItem = (req, res) => {
 	//validation that those things exist in the request
 	if (
@@ -25,7 +27,6 @@ exports.updateInventoryItem = (req, res) => {
 				"Please make sure to provide warehouse id, item name, a descriptin, a category, if it's in or out of stock, and quantity in your request"
 			);
 	}
-
   // validate that quantity is a number
 	if (typeof parseInt(req.body.quantity) !== "number") {
 		return res
@@ -34,7 +35,6 @@ exports.updateInventoryItem = (req, res) => {
 				`Quantity of ${req.body.quantity} is not a valid entry, update failed`
 			);
 	}
-
   //make a warehouse call and return error if warehouse id does not match an existing warehouse
 	knex("warehouses")
 		.where({ id: req.body.warehouse_id })
