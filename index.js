@@ -14,7 +14,7 @@ const warehouseRoutes = require('./routes/warehouseRoute');
 const inventoryRoutes = require('./routes/inventoryRoute');
 
 app.use('/warehouses', warehouseRoutes);
-app.use('/inventory', inventoryRoutes);
+app.use('/inventories', inventoryRoutes);
 
 
 
