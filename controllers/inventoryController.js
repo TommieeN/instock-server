@@ -66,3 +66,31 @@ exports.updateInventoryItem = (req, res) => {
 				);
 		});
 };
+
+//* POST/ADD NEW INVENTORY ITEM *//
+
+exports.addNewInventoryItem = (req, res) => {
+    if (
+        !req.body.warehouse_id ||
+        !req.body.item_name ||
+        !req.body.description ||
+        !req.body.category ||
+        !req.body.status ||
+        !req.body.quantity
+    ) {
+        return res
+        .status(400)
+        .send(
+            "Please make sure to provide all inventory information in your request, adding new item failed"
+        );
+    }
+    knex("inventories")
+    .insert(req.body)
+    .then((result) => {
+        const id = result[0];
+        res.status(201).send({ id, ...req.body });
+    })
+    .catch ((err) => {
+        res.status(500).send(`Error creating new item:${err}`)
+    })
+}
