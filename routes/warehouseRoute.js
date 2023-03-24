@@ -8,10 +8,13 @@ router
 
 router
 .route('/:id')
-.put(warehouseController.editWarehouse);
+.put(warehouseController.editWarehouse)
+.get(warehouseController.singleWarehouse);
 
 router
 .route('/:id/inventories')
 .get(warehouseController.warehouseInventories);
+
+
 
 module.exports = router;
