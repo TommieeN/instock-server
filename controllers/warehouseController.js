@@ -119,3 +119,22 @@ exports.addNewWarehouse = (req, res) => {
 	  });
   };
   
+
+  // Get single warehouse //
+
+  exports.singleWarehouse = (req, res) => {
+	knex("warehouses")
+	.where({ id: req.params.id })
+	.then((data) => {
+		if (!data.length) {
+			return res
+			.status(404)
+			.send(`Warehouse with id: ${req.params.id} not found`)
+		}
+
+		res.status(200).json(data[0]);
+	})
+	.catch(() => 
+	res.status(400).send(`Error: unable to retrieve warehouse ${req.params.id} ${error}`)
+	);
+  };
