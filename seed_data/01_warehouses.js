@@ -2,9 +2,9 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
- exports.seed = async function (knex) {
+ //exports.seed = async function (knex) {
    // Deletes ALL existing entries   await knex('warehouses').del();
-   await knex('warehouses').insert([
+ //  await knex('warehouses').insert([
 module.exports = [
   {
     id: "2922c286-16cd-4d43-ab98-c79f698aeab0",
@@ -95,5 +95,5 @@ module.exports = [
     contact_email: "vmendoza@instock.com",
   },
 ];
-   ]);
- };
+//   ]);
+// };
