@@ -95,19 +95,19 @@ exports.addNewWarehouse = (req, res) => {
 		return res
 			.status(400)
 			.send(
-				"Please make sure to provide all warehouse information in your request, edit failed"
+				"Please make sure to provide all warehouse information in your request, add failed"
 			);
 	}
 	//require valid email address
 	if (!req.body.contact_email.includes("@") || !req.body.contact_email.includes(".")) {
-	  return res.status(400).send("Please include a valid email, edit failed")
+	  return res.status(400).send("Please include a valid email, add failed")
 	}
 	//require valid phone number length
 	if (req.body.contact_phone.length < 10) {
-	  return res.status(400).send("Please include a valid phone number, edit failed")
+	  return res.status(400).send("Please include a valid phone number, add failed")
 	}
   
-	// INSERT NEW WAREHOUSE INTO DATABASE
+	// insert new warehouse into database
 	knex("warehouses")
 	  .insert(req.body)
 	  .then((result) => {
