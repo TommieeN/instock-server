@@ -9,12 +9,12 @@ router
 router
 .route('/:id')
 .put(warehouseController.editWarehouse)
-.get(warehouseController.singleWarehouse);
+.get(warehouseController.singleWarehouse)
+.delete(warehouseController.deleteWarehouse);
 
 router
 .route('/:id/inventories')
 .get(warehouseController.warehouseInventories);
-
 
 
 module.exports = router;

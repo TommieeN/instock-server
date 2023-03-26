@@ -120,21 +120,41 @@ exports.addNewWarehouse = (req, res) => {
   };
   
 
-  // Get single warehouse //
+  	// Get single warehouse //
+	exports.singleWarehouse = (req, res) => {
+		knex("warehouses")
+			.where({ id: req.params.id })
+			.then((data) => {
+				if (!data.length) {
+					return res
+						.status(404)
+						.send(`Warehouse with id: ${req.params.id} not found`)
+				}
 
-  exports.singleWarehouse = (req, res) => {
-	knex("warehouses")
-	.where({ id: req.params.id })
-	.then((data) => {
-		if (!data.length) {
-			return res
-			.status(404)
-			.send(`Warehouse with id: ${req.params.id} not found`)
-		}
+				res.status(200).json(data[0]);
+			})
+			.catch(() => 
+				res.status(400).send(`Error: unable to retrieve warehouse ${req.params.id} ${error}`)
+			);
+	};
 
-		res.status(200).json(data[0]);
-	})
-	.catch(() => 
-	res.status(400).send(`Error: unable to retrieve warehouse ${req.params.id} ${error}`)
-	);
-  };
+  	// Delete a Warehouse //
+	exports.deleteWarehouse = (req, res) => {
+		// This will also delete inventories associated due to foreign key
+		knex("warehouses")
+			.delete()
+			.where({ id: req.params.id })
+			// From knex documentation: "delete: resolves the promise / fulfills the callback with the number of affected rows for the query"
+			.then((affectedRows) => {
+				if (affectedRows === 0) {
+					res.status(404).send(`Warehouse with id: ${req.params.id} not found`)
+				} else {
+					res
+						.status(204)
+						.send(`Warehouse with id: ${req.params.id} has been removed`);
+				}
+			})
+			.catch((err) =>
+				res.status(400).send(`Error: unable to remove warehouse ${req.params.id} ${err}`)
+			);
+	};
