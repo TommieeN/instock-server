@@ -3,6 +3,8 @@ const knex = require("knex")(require("../knexfile"));
 //GET ALL INVENTORY
 exports.index = (_req, res) => {
   knex("inventories")
+    .join("warehouses", "inventories.warehouse_id", "=", "warehouses.id")
+    .select("inventories.*", "warehouses.warehouse_name")
     .then((data) => {
       res.status(200).json(data);
     })
